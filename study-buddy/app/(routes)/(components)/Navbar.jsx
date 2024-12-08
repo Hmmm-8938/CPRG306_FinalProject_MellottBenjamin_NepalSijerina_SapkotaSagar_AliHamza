@@ -4,43 +4,49 @@ import Link from "next/link";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { usePathname } from "next/navigation";
+import { FaHome } from "react-icons/fa";
+import { MdExplore } from "react-icons/md";
+import { TbChartBarPopular } from "react-icons/tb";
 
 const Navbar = () => {
   const pathName = usePathname();
   console.log(pathName);
   return (
-    <div className="text-white py-10 flex items-center justify-between ">
-      <div className="space-x-4">
+    <div className="text-white py-10 flex items-center gap-2 justify-between ">
+      <div className="space-x-4 flex items-center">
         <Link
           className={`${
             pathName == "/home" ? "font-semibold" : "font-normal"
-          }  hover:border-b-2 `}
+          }  hover:border-b-2 flex gap-2 items-center `}
           href={"/home"}
         >
-          Home
+          <FaHome />
+          <span>Home</span>
         </Link>
         <Link
           className={`${
             pathName == "/explore" ? "font-semibold" : "font-normal"
-          }  hover:border-b-2 `}
+          }  hover:border-b-2 flex gap-2 items-center `}
           href={"/explore"}
         >
-          Explore
+          <MdExplore />
+          <span>Explore</span>
         </Link>
         <Link
           className={`${
             pathName == "/popular" ? "font-semibold" : "font-normal"
-          }  hover:border-b-2 `}
+          }  hover:border-b-2 flex gap-2 items-center `}
           href={"/popular"}
         >
-          Popular
+          <TbChartBarPopular />
+          <span>Popular</span>
         </Link>
       </div>
       <div className="relative">
         <input
           type="text"
           placeholder="Search"
-          className="p-2 w-80 font-semibold rounded-xl text-black outline-none"
+          className="p-2 w-96 font-semibold rounded-xl text-black outline-none"
         />
         <button className="absolute top-3 right-3">
           <FaSearch className="text-black  " />
