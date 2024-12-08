@@ -1,19 +1,38 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+  const pathName = usePathname();
+  console.log(pathName);
   return (
     <div className="text-white py-10 flex items-center justify-between ">
       <div className="space-x-4">
-        <Link className="font-semibold hover:border-b-2  " href={"/"}>
+        <Link
+          className={`${
+            pathName == "/home" ? "font-semibold" : "font-normal"
+          }  hover:border-b-2 `}
+          href={"/home"}
+        >
           Home
         </Link>
-        <Link className="font-semibold hover:border-b-2" href={"/"}>
+        <Link
+          className={`${
+            pathName == "/explore" ? "font-semibold" : "font-normal"
+          }  hover:border-b-2 `}
+          href={"/explore"}
+        >
           Explore
         </Link>
-        <Link className="font-semibold hover:border-b-2" href={"/"}>
+        <Link
+          className={`${
+            pathName == "/popular" ? "font-semibold" : "font-normal"
+          }  hover:border-b-2 `}
+          href={"/popular"}
+        >
           Popular
         </Link>
       </div>

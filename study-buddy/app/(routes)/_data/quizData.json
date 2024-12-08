@@ -1,0 +1,34 @@
+[
+  {
+    "author": "Sagar",
+    "title": "Mastering Data Structures & Algorithms: Ultimate Challenge",
+    "description": "Ready to conquer the world of algorithms and data structures? This quiz is designed to test your understanding of core concepts like sorting, searching, and dynamic programming. Sharpen your skills with this interactive challenge and prepare to ace your exams with confidence. Let's see how much you've really mastered!",
+    "upVote": "15",
+    "downVote": "2",
+    "uploadDate": "2024-11-15"
+  },
+  {
+    "author": "Benjamin",
+    "title": "Web Development Deep Dive: Props Handling Unlocked",
+    "description": "Dive deep into the world of React props with this quiz! Whether you're a beginner or intermediate, this quiz will test your understanding of props handling, state management, and component composition. Level up your web development skills and become a React pro. Ready to ace this challenge?",
+    "upVote": "20",
+    "downVote": "3",
+    "uploadDate": "2024-11-10"
+  },
+  {
+    "author": "Sijerina",
+    "title": "Phase 1: Software Analysis & Project Planning Quiz",
+    "description": "Embark on a journey of software analysis with this quiz that covers the first phase of project planning. From requirement gathering to initial design, test your knowledge of the critical steps involved in launching a successful project. This quiz will prepare you for real-world software engineering challenges.",
+    "upVote": "12",
+    "downVote": "1",
+    "uploadDate": "2024-11-20"
+  },
+  {
+    "author": "Hamza",
+    "title": "Database Design Essentials: Building Physical Models",
+    "description": "Master the art of database design with this quiz on physical model creation! From normalization to table structure and indexing, this quiz will test your understanding of creating robust, scalable databases. Perfect for aspiring database administrators and backend developers. Are you ready to take your database skills to the next level?",
+    "upVote": "14",
+    "downVote": "1",
+    "uploadDate": "2024-12-01"
+  }
+]
