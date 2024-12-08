@@ -1,7 +1,14 @@
 import React from "react";
 
 const layout = ({ children }) => {
-  return <div>{children}</div>;
+  return (
+    <div className="space-y-4">
+      <h1 className="text-white font-semibold text-xl tracking-wider">
+        Explore
+      </h1>
+      {children}
+    </div>
+  );
 };
 
 export default layout;
