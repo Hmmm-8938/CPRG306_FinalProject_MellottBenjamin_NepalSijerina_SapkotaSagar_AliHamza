@@ -1,15 +1,22 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { FaHome } from "react-icons/fa";
 import { MdExplore } from "react-icons/md";
 import { TbChartBarPopular } from "react-icons/tb";
+import { MdUpload } from "react-icons/md";
 
 const Navbar = () => {
   const pathName = usePathname();
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setUserLoggedIn(false);
+  }, []);
+
   console.log(pathName);
   return (
     <div className="text-white py-10 flex items-center gap-2 justify-between ">
@@ -52,16 +59,36 @@ const Navbar = () => {
           <FaSearch className="text-black  " />
         </button>
       </div>
-      <div className="flex items-center gap-2">
-        <Image
-          height={20}
-          width={20}
-          alt="Profile image"
-          src="https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
-          className="w-8 h-8 bg-slate-400 rounded-full"
-        />
-        <span className="font-semibold">Profile</span>
-      </div>
+
+      {userLoggedIn ? (
+        <div className="flex items-center gap-2">
+          <div>
+            <button className="text-white text-sm border-white border-2 p-2 flex gap-2 items-center rounded-xl hover:border-2 hover:bg-white hover:text-black hover:border-white duration-500 transition-all ">
+              <MdUpload />
+              <span>Upload Your Quiz</span>
+            </button>
+          </div>
+          <div className="flex items-center gap-2">
+            <Image
+              height={20}
+              width={20}
+              alt="Profile image"
+              src="https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+              className="w-8 h-8 bg-slate-400 rounded-full"
+            />
+            <span className="font-semibold">Profile</span>
+          </div>
+        </div>
+      ) : (
+        <div className="flex gap-2">
+          <button className="bg-blue-500 p-2 rounded hover:bg-blue-400 transition-all duration-200 text-white">
+            Login
+          </button>
+          <button className="bg-blue-500 p-2 rounded hover:bg-blue-400 transition-all duration-200 text-white">
+            Sign up
+          </button>
+        </div>
+      )}
     </div>
   );
 };
