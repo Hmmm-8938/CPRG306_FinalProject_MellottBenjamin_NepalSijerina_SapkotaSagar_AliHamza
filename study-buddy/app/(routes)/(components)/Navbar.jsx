@@ -8,16 +8,33 @@ import { FaHome } from "react-icons/fa";
 import { MdExplore } from "react-icons/md";
 import { TbChartBarPopular } from "react-icons/tb";
 import { MdUpload } from "react-icons/md";
+import { useUserAuth } from "../_utils/auth-context";
 
 const Navbar = () => {
   const pathName = usePathname();
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+
+  const onSignIn = async () => {
+    await gitHubSignIn();
+  };
+
+  const onSignOut = async () => {
+    await firebaseSignOut();
+  };
 
   useEffect(() => {
     setUserLoggedIn(false);
   }, []);
 
-  console.log(pathName);
+  useEffect(() => {
+    if (user) {
+      setUserLoggedIn(true);
+      console.log(user);
+      console.log(user.photoURL);
+    }
+  }, [user]);
+
   return (
     <div className="text-white py-10 flex items-center gap-2 justify-between ">
       <div className="space-x-4 flex items-center">
@@ -61,7 +78,7 @@ const Navbar = () => {
       </div>
 
       {userLoggedIn ? (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-6">
           <div>
             <button className="text-white text-sm border-white border-2 p-2 flex gap-2 items-center rounded-xl hover:border-2 hover:bg-white hover:text-black hover:border-white duration-500 transition-all ">
               <MdUpload />
@@ -73,19 +90,27 @@ const Navbar = () => {
               height={20}
               width={20}
               alt="Profile image"
-              src="https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg"
+              src={user.photoURL}
               className="w-8 h-8 bg-slate-400 rounded-full"
             />
             <span className="font-semibold">Profile</span>
           </div>
+          <div>
+            <button
+              onClick={onSignOut}
+              className="bg-red-500 text-sm p-2 rounded hover:bg-red-400 transition-all duration-200 text-white font-semibold"
+            >
+              Sign Out
+            </button>
+          </div>
         </div>
       ) : (
         <div className="flex gap-2">
-          <button className="bg-blue-500 p-2 rounded hover:bg-blue-400 transition-all duration-200 text-white">
-            Login
-          </button>
-          <button className="bg-blue-500 p-2 rounded hover:bg-blue-400 transition-all duration-200 text-white">
-            Sign up
+          <button
+            onClick={onSignIn}
+            className="bg-blue-500 p-2 rounded hover:bg-blue-400 transition-all duration-200 text-white"
+          >
+            Sign In
           </button>
         </div>
       )}

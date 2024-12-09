@@ -1,12 +1,15 @@
 import React from "react";
 import Navbar from "./(components)/Navbar";
+import { AuthContextProvider } from "./_utils/auth-context";
 
 const layout = ({ children }) => {
   return (
-    <div className="container mx-auto px-5">
-      <Navbar />
-      {children}
-    </div>
+    <AuthContextProvider>
+      <div className="container mx-auto px-5">
+        <Navbar />
+        {children}
+      </div>
+    </AuthContextProvider>
   );
 };
 
