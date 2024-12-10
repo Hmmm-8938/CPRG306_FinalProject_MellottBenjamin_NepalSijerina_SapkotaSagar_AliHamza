@@ -33,12 +33,6 @@ const UploadQuizPage = () => {
   const [lectureDetails, setLectureDetails] = useState("");
   const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
-  useEffect(() => {
-    if (user) {
-      console.log(user);
-    }
-  }, []);
-
   const handleUpload = async () => {
     if (!title || !lectureDetails) {
       alert("Please fill out all fields before uploading.");

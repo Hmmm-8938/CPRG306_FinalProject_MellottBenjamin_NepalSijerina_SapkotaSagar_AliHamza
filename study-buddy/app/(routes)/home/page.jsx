@@ -4,8 +4,8 @@ import QuizTemplate from "../(components)/QuizTemplate"; // Import the QuizTempl
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../_utils/firebase";
 
-const page = () => {
-  const [quizzes, setQuizzes] = useState([]); // State to store fetched quizzes
+const Page = () => {
+  const [quizzes, setQuizzes] = useState([]);
 
   useEffect(() => {
     const fetchQuizzes = async () => {
@@ -29,10 +29,10 @@ const page = () => {
   return (
     <>
       <div className="space-y-10">
-        {quizzes.length === 0 ? (
-          <p>No quizzes available.</p> // Display a message if no quizzes are available
+        {quizzes?.length === 0 ? (
+          <p>No quizzes available.</p>
         ) : (
-          quizzes.map((item, i) => (
+          quizzes?.map((item, i) => (
             <div key={item.id}>
               <QuizTemplate item={item} />
             </div>
@@ -43,4 +43,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page; // Ensure that the component is exported as `Page`
