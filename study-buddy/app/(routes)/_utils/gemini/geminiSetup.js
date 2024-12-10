@@ -4,7 +4,7 @@ const generateData = async (quizDetails) => {
   const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-  const prompt = `Generate a JSON object based on the following instructions:
+  const prompt = `This is the lecture details ${quizDetails.lectureDetails} that I want to get quiz for now you have to Generate a JSON object based on the following instructions:
   1. The JSON should contain an array of questions.
   2. Each question should have a "question" field (string), "options" field (array of strings), "correctAnswer" field (string), and "explanation" field (string).
   3. Do not include any code block markers (e.g., \`\`\`json at the start and \`\`\` at the end).
@@ -34,9 +34,8 @@ const generateData = async (quizDetails) => {
         }
       ]
      5. Provide as many questions as possible for the given amount of text have at least 5 or more!   
-    And this is the quiz details that you need to make new quiz for ${quizDetails}
       `;
-
+  console.log(quizDetails);
   const result = await model.generateContent(prompt);
   let responseText = result.response.text();
 
