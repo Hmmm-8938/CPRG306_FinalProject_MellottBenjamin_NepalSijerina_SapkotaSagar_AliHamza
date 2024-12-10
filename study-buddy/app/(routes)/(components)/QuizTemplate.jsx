@@ -5,9 +5,6 @@ import { IoArrowUpCircle } from "react-icons/io5";
 import { IoArrowDownCircle } from "react-icons/io5";
 
 const QuizTemplate = ({ item }) => {
-  useEffect(() => {
-    console.log(item);
-  }, []);
   return (
     <div className="bg-[#403179] shadow-lg hover:bg-[#3c2c74] transition-all duration-300 text-white py-4 px-5 rounded-xl space-y-4">
       <div className="space-y-1">

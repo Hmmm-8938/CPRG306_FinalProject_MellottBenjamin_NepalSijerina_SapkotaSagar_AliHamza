@@ -14,6 +14,8 @@ async function addDataToFireStore(title, quizInfo, authorName) {
         title: title,
         quizInfo: quizInfo,
         author: authorName,
+        upVote: 0,
+        downVote: 0,
         createdAt: new Date(),
       }
     );
