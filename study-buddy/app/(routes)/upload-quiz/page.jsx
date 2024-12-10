@@ -32,8 +32,10 @@ const UploadQuizPage = () => {
   const [title, setTitle] = useState("");
   const [lectureDetails, setLectureDetails] = useState("");
   const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+  const [loading, setLoading] = useState(false);
 
   const handleUpload = async () => {
+    setLoading(true);
     if (!title || !lectureDetails) {
       alert("Please fill out all fields before uploading.");
       return;
@@ -52,7 +54,7 @@ const UploadQuizPage = () => {
     await addDataToFireStore(title, output, user.displayName);
 
     alert("Quiz uploaded successfully!");
-
+    setLoading(false);
     // // Reset form after submission
     // setTitle("");
     // setLectureDetails("");
@@ -97,8 +99,11 @@ const UploadQuizPage = () => {
 
         {/* Upload Button */}
         <button
+          disabled={loading}
           onClick={handleUpload}
-          className="w-full p-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={`w-full p-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            loading ? "bg-blue-300 cursor-pointer" : ""
+          }`}
         >
           Upload Quiz
         </button>
