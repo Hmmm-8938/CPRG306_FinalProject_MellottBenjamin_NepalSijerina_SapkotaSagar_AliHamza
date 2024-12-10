@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation"; // import useRouter for navigation
 import { FaHome } from "react-icons/fa";
 import { MdExplore } from "react-icons/md";
 import { TbChartBarPopular } from "react-icons/tb";
@@ -12,7 +12,9 @@ import { useUserAuth } from "../_utils/auth-context";
 
 const Navbar = () => {
   const pathName = usePathname();
+  const router = useRouter(); // Used to navigate
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
   const onSignIn = async () => {
@@ -33,6 +35,17 @@ const Navbar = () => {
       setUserLoggedIn(true);
     }
   }, [user]);
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value); // Update search query state
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    if (searchQuery) {
+      router.push(`/search-results?query=${searchQuery}`); // Navigate to search results page
+    }
+  };
 
   return (
     <div className="text-white py-10 flex items-center gap-2 justify-between ">
@@ -65,16 +78,19 @@ const Navbar = () => {
           <span>Popular</span>
         </Link>
       </div>
-      <div className="relative">
+
+      <form onSubmit={handleSearchSubmit} className="relative">
         <input
           type="text"
+          value={searchQuery}
+          onChange={handleSearch}
           placeholder="Search"
           className="p-2 w-96 font-semibold rounded-xl text-black outline-none"
         />
-        <button className="absolute top-3 right-3">
-          <FaSearch className="text-black  " />
+        <button type="submit" className="absolute top-3 right-3">
+          <FaSearch className="text-black" />
         </button>
-      </div>
+      </form>
 
       {userLoggedIn ? (
         <div className="flex items-center gap-6">
