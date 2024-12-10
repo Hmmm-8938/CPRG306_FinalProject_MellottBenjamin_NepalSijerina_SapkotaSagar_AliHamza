@@ -65,7 +65,8 @@ const SearchResults = () => {
       {loading ? (
         <p>Loading quizzes...</p>
       ) : quizzes.length === 0 ? (
-        <p>No quizzes found for "{queryParam}"</p>
+        // Use `&quot;` to escape the quote inside JSX
+        <p>No quizzes found for &quot;{queryParam}&quot;</p>
       ) : (
         quizzes.map((item) => (
           <div key={item.id}>
