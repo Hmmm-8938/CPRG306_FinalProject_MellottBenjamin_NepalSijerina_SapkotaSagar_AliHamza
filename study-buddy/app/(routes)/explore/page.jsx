@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import data from "../_data/quizData.json";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../_utils/firebase";
 import QuizTemplate from "../(components)/QuizTemplate";
 
 // Fisher-Yates Shuffle Function
@@ -14,19 +15,40 @@ const shuffleArray = (array) => {
 };
 
 const Page = () => {
-  const [shuffledData, setShuffledData] = useState(data);
+  const [shuffledData, setShuffledData] = useState([]); // State to store shuffled data
 
   useEffect(() => {
-    setShuffledData(shuffleArray(data));
+    const fetchQuizzes = async () => {
+      try {
+        const quizCollectionRef = collection(db, "quizes"); // Reference to Firestore 'quizes' collection
+        const querySnapshot = await getDocs(quizCollectionRef); // Fetch all quizzes
+        const quizzesData = [];
+
+        querySnapshot.forEach((doc) => {
+          quizzesData.push({ id: doc.id, ...doc.data() }); // Push quiz data to array
+        });
+
+        // Shuffle the quiz data after fetching
+        setShuffledData(shuffleArray(quizzesData));
+      } catch (error) {
+        console.error("Error fetching quizzes:", error);
+      }
+    };
+
+    fetchQuizzes();
   }, []);
 
   return (
     <div className="space-y-10">
-      {shuffledData.map((item, i) => (
-        <div key={i}>
-          <QuizTemplate item={item} />
-        </div>
-      ))}
+      {shuffledData.length === 0 ? (
+        <p>No quizzes available.</p> // Display message if no quizzes are available
+      ) : (
+        shuffledData.map((item, i) => (
+          <div key={item.id}>
+            <QuizTemplate item={item} />
+          </div>
+        ))
+      )}
     </div>
   );
 };

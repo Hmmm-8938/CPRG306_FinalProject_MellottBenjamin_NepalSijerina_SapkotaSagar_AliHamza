@@ -15,9 +15,14 @@ const Page = () => {
         const quizzesData = [];
 
         querySnapshot.forEach((doc) => {
-          quizzesData.push({ id: doc.id, ...doc.data() }); // Push the quiz data to the array
+          quizzesData.push({ id: doc.id, ...doc.data() });
+          // Push the quiz data to the array
         });
-        setQuizzes(quizzesData); // Update state with fetched quizzes
+
+        // Sort quizzes by the createdAt field in descending order (recent first)
+        quizzesData.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
+
+        setQuizzes(quizzesData); // Update state with sorted quizzes
       } catch (error) {
         console.error("Error fetching quizzes:", error);
       }
