@@ -41,7 +41,7 @@ const Page = () => {
   return (
     <div className="space-y-10">
       {shuffledData.length === 0 ? (
-        <p>No quizzes available.</p> // Display message if no quizzes are available
+        <p className="text-white font-semibold">No quizzes available.</p> // Display message if no quizzes are available
       ) : (
         shuffledData.map((item, i) => (
           <div key={item.id}>

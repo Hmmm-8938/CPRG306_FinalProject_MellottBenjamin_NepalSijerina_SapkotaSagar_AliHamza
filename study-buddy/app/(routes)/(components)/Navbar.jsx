@@ -9,12 +9,15 @@ import { MdExplore } from "react-icons/md";
 import { TbChartBarPopular } from "react-icons/tb";
 import { MdUpload } from "react-icons/md";
 import { useUserAuth } from "../_utils/auth-context";
+import { db } from "../_utils/firebase"; // Make sure to import your Firestore instance
+import { collection, query, where, getDocs } from "firebase/firestore"; // Firestore functions
 
 const Navbar = () => {
   const pathName = usePathname();
   const router = useRouter(); // Used to navigate
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [suggestions, setSuggestions] = useState([]); // State for search suggestions
   const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
   const onSignIn = async () => {
@@ -38,6 +41,35 @@ const Navbar = () => {
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value); // Update search query state
+    if (event.target.value.length > 2) {
+      // Fetch search suggestions after user types 3 or more characters
+      fetchSearchSuggestions(event.target.value);
+    } else {
+      setSuggestions([]); // Clear suggestions when search is too short
+    }
+  };
+
+  const fetchSearchSuggestions = async (queryText) => {
+    try {
+      const quizzesRef = collection(db, "quizzes"); // Reference to your quizzes collection
+      const q = query(
+        quizzesRef,
+        where("title", ">=", queryText), // Search in the title field
+        where("title", "<=", queryText + "\uf8ff") // Query that starts with the queryText
+      );
+
+      const querySnapshot = await getDocs(q);
+      const fetchedSuggestions = [];
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        fetchedSuggestions.push(data.title); // You can also include more fields like questions
+      });
+
+      setSuggestions(fetchedSuggestions);
+    } catch (error) {
+      console.error("Error fetching search suggestions: ", error);
+    }
   };
 
   const handleSearchSubmit = (event) => {
@@ -45,6 +77,11 @@ const Navbar = () => {
     if (searchQuery) {
       router.push(`/search-results?query=${searchQuery}`); // Navigate to search results page
     }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchQuery(suggestion); // Update search query with clicked suggestion
+    router.push(`/search-results?query=${suggestion}`); // Navigate to search results page
   };
 
   return (

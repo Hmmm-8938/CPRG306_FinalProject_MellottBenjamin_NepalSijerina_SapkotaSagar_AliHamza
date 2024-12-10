@@ -35,7 +35,7 @@ const Page = () => {
     <>
       <div className="space-y-10">
         {quizzes?.length === 0 ? (
-          <p>No quizzes available.</p>
+          <p className="text-white font-semibold">No quizzes available.</p>
         ) : (
           quizzes?.map((item, i) => (
             <div key={item.id}>
