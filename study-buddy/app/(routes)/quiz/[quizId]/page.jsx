@@ -12,6 +12,7 @@ const QuizPage = () => {
   const [answers, setAnswers] = useState({}); // Store the user's answers
   const [score, setScore] = useState(null); // Store the final score after submission
   const [submission, setSubmission] = useState(false);
+  const [percentage, setPercentage] = useState(0);
 
   // Fetch quiz data from Firebase when the quizId is available
   useEffect(() => {
@@ -55,7 +56,9 @@ const QuizPage = () => {
       }
     });
     setSubmission(true);
+    
     setScore(correctAnswersCount); // Update the score based on correct answers
+    setPercentage(((correctAnswersCount / quizData.quizInfo.length) * 100).toFixed(2));
   };
 
   if (!quizData) {
@@ -102,7 +105,9 @@ const QuizPage = () => {
       </div>
 
       <button
-        onClick={handleSubmit}
+      onClick={() => {
+        handleSubmit(); // Update the score immediately
+      }}
         className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500"
       >
         Submit Quiz
@@ -113,11 +118,11 @@ const QuizPage = () => {
       >
         Reset
       </button>
-
+    
       {score !== null && (
         <div className="mt-4">
           <p className="text-lg font-semibold">
-            Your Score: {score} / {quizData.quizInfo.length}
+            Your Score: {score} / {quizData.quizInfo.length} || {percentage}%
           </p>
         </div>
       )}
