@@ -31,8 +31,6 @@ const Navbar = () => {
   useEffect(() => {
     if (user) {
       setUserLoggedIn(true);
-      console.log(user);
-      console.log(user.photoURL);
     }
   }, [user]);
 
@@ -81,10 +79,13 @@ const Navbar = () => {
       {userLoggedIn ? (
         <div className="flex items-center gap-6">
           <div>
-            <button className="text-white text-sm border-white border-2 p-2 flex gap-2 items-center rounded-xl hover:border-2 hover:bg-white hover:text-black hover:border-white duration-500 transition-all ">
+            <Link
+              href={"/upload-quiz"}
+              className="text-white text-sm border-white border-2 p-2 flex gap-2 items-center rounded-xl hover:border-2 hover:bg-white hover:text-black hover:border-white duration-500 transition-all "
+            >
               <MdUpload />
               <span>Upload Your Quiz</span>
-            </button>
+            </Link>
           </div>
           <div className="flex items-center gap-2">
             <Image
