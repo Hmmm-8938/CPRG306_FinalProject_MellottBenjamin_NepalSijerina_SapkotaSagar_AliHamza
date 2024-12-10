@@ -34,7 +34,7 @@ const generateData = async (quizDetails) => {
         }
       ]
      5. Provide as many questions as possible for the given amount of text have at least 5 or more!   
-      
+    And this is the quiz details that you need to make new quiz for ${quizDetails}
       `;
 
   const result = await model.generateContent(prompt);
