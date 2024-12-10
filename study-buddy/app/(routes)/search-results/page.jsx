@@ -1,10 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../_utils/firebase";
 import QuizTemplate from "../(components)/QuizTemplate";
 
+// Wrap SearchResults with Suspense for handling client-side navigation hooks like useSearchParams
 const SearchResults = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -65,7 +66,6 @@ const SearchResults = () => {
       {loading ? (
         <p>Loading quizzes...</p>
       ) : quizzes.length === 0 ? (
-        // Use `&quot;` to escape the quote inside JSX
         <p>No quizzes found for &quot;{queryParam}&quot;</p>
       ) : (
         quizzes.map((item) => (
@@ -78,4 +78,11 @@ const SearchResults = () => {
   );
 };
 
-export default SearchResults;
+// Wrapping the whole SearchResults component inside Suspense
+const SearchResultsWrapper = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <SearchResults />
+  </Suspense>
+);
+
+export default SearchResultsWrapper;
