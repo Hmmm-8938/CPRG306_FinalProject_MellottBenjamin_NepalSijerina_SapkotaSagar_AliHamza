@@ -21,6 +21,7 @@ const Navbar = () => {
 
   const onSignOut = async () => {
     await firebaseSignOut();
+    setUserLoggedIn(false);
   };
 
   useEffect(() => {
@@ -90,7 +91,7 @@ const Navbar = () => {
               height={20}
               width={20}
               alt="Profile image"
-              src={user.photoURL}
+              src={user?.photoURL}
               className="w-8 h-8 bg-slate-400 rounded-full"
             />
             <span className="font-semibold">Profile</span>
